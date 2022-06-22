@@ -23,16 +23,42 @@ struct ContentView: View {
         "Mountain with lots of trees and NO mist",
         "Mountain with lots of trees and mist",
     ]
-    var index = 0
+    @State var index = 0
+    var opacity = 0.0
+    var rectangeWidth = 400
     
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack {
+            Image(photos[index % photos.count])
+                .resizable()
+                .scaledToFit()
+                .frame(height: 430)
+                .offset(y: 10)
+            HStack {
+                Button {
+                    index -= 1
+                } label: {
+                    Rectangle()
+                        .frame(width: CGFloat(rectangeWidth))
+                        .offset(y: 10)
+                        .opacity(opacity)
+                }
+                Button {
+                    index += 1
+                } label: {
+                    Rectangle()
+                        .frame(width: CGFloat(rectangeWidth))
+                        .offset(y: 10)
+                        .opacity(opacity)
+                }
+            }
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }
